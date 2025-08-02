@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: anbelose <anbelose@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/08/02 20:22:06 by anbelose          #+#    #+#              #
+#    Updated: 2025/08/02 20:22:15 by anbelose         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libftprintf.a
 
 CC = cc
@@ -16,7 +28,8 @@ LIBFT_A = $(LIBFT_DIR)/libft.a
 
 all: $(LIBFT_A) $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(LIBFT_A)
+	cp $(LIBFT_A) $(NAME)
 	ar rcs $(NAME) $(OBJ)
 
 %.o : %.c

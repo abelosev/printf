@@ -1,56 +1,68 @@
-#include "ft_printf.h"
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anbelose <anbelose@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/02 20:16:48 by anbelose          #+#    #+#             */
+/*   Updated: 2025/08/02 20:18:57 by anbelose         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int ft_putchar_count(char c)
+#include "ft_printf.h"
+#include "../libft/libft.h"
+
+int	putchar_c(char c)
 {
 	write(1, &c, 1);
 	return (1);
 }
 
-int ft_putstr_count(char *s)
+int	putstr_c(char *s)
 {
-	int i;
+	int	i;
 
 	if (!s)
-		return (ft_putstr_count("(null)"));
+		return (putstr_c("(null)"));
 	i = 0;
-	while(s[i])
+	while (s[i])
 		write(1, &s[i++], 1);
-	return (ft_strlen(s));
+	return (i);
 }
 
-int ft_putnbr_base_unsigned(unsigned long nbr, const char *base)
+int	putnbr_u(unsigned long long nbr, const char *base)
 {
-	char c;
-	int base_len;
-	int count;
+	char	c;
+	int		base_len;
+	int		count;
 
 	count = 0;
-	base_len = ft_strlen(base);
-	if (nbr >= (unsigned long)base_len)
+	base_len = (int)ft_strlen(base);
+	if (nbr >= (unsigned long long)base_len)
 	{
-		ft_putnbr_base_unsigned(nbr / (unsigned long)base_len, base);
+		putnbr_u(nbr / (unsigned long)base_len, base);
 		nbr = nbr % (unsigned long)base_len;
 		count++;
 	}
 	c = base[nbr];
-	count += ft_putchar_count(c);
+	count += putchar_c(c);
 	return (count);
 }
 
-int ft_putnbr_base_signed(long long nbr, const char *base)
+int	putnbr_s(long long nbr, const char *base)
 {
-	unsigned long tmp;
-	int count;
+	unsigned long long	tmp;
+	int				count;
 
 	count = 0;
 	if (nbr < 0)
 	{
-		tmp = -(unsigned long)nbr;
-		count += ft_putchar_count('-');
+		tmp = (unsigned long long)(-nbr);
+		count += putchar_c('-');
 	}
 	else
-		tmp = nbr;
-	count += ft_putnbr_base_unsigned(tmp, base);
+		tmp = (unsigned long long)nbr;
+	count += putnbr_u(tmp, base);
 	return (count);
 }
