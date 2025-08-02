@@ -16,10 +16,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdarg.h>
-# include <stdint.h>
 
 int	ft_printf(const char *fmt, ...);
-int	putnbr_u(unsigned long long nbr, const char *base);
+int	putnbr_u(unsigned long nbr, const char *base);
 int	putnbr_s(long long nbr, const char *base);
 int	putstr_c(char *s);
 int	putchar_c(char c);

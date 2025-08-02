@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 int	putchar_c(char c)
 {
@@ -31,38 +31,32 @@ int	putstr_c(char *s)
 	return (i);
 }
 
-int	putnbr_u(unsigned long long nbr, const char *base)
+int	putnbr_u(unsigned long nbr, const char *base)
 {
-	char	c;
 	int		base_len;
 	int		count;
 
 	count = 0;
 	base_len = (int)ft_strlen(base);
-	if (nbr >= (unsigned long long)base_len)
-	{
-		putnbr_u(nbr / (unsigned long)base_len, base);
-		nbr = nbr % (unsigned long)base_len;
-		count++;
-	}
-	c = base[nbr];
-	count += putchar_c(c);
+	if (nbr >= (unsigned long)base_len)
+		count += putnbr_u(nbr / (unsigned long)base_len, base);
+	count += putchar_c(base[nbr % (unsigned long)base_len]);
 	return (count);
 }
 
 int	putnbr_s(long long nbr, const char *base)
 {
-	unsigned long long	tmp;
+	unsigned long	tmp;
 	int				count;
 
 	count = 0;
 	if (nbr < 0)
 	{
-		tmp = (unsigned long long)(-nbr);
+		tmp = (unsigned long)(-(nbr + 1) + 1);
 		count += putchar_c('-');
 	}
 	else
-		tmp = (unsigned long long)nbr;
+		tmp = (unsigned long)nbr;
 	count += putnbr_u(tmp, base);
 	return (count);
 }

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 void	print_ptr(va_list ap, int *count)
 {
@@ -23,7 +23,7 @@ void	print_ptr(va_list ap, int *count)
 	else
 	{
 		*count += putstr_c("0x");
-		*count += putnbr_u((uintptr_t)ptr,
+		*count += putnbr_u((unsigned long)ptr,
 				"0123456789abcdef");
 	}
 }
